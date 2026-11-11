@@ -12,7 +12,7 @@ env:
 
 jobs:
   mac:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Fetch VST3 SDK
         run: git clone --depth 1 --branch "$SDK_TAG" --recurse-submodules --shallow-submodules https://github.com/steinbergmedia/vst3sdk.git
