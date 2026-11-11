@@ -1,0 +1,74 @@
+﻿RUMSTLE 1.12
+============
+
+Ein kleiner Lo-Fi-Synthesizer mit Steckfeld: Oszillator, LFO und
+Stufengenerator. Als VST3-Instrument und als eigenständiges Programm.
+
+Nur für Windows 10/11, 64 Bit.
+
+
+Installation als Plugin (VST3)
+------------------------------
+1. Den ganzen Ordner "rumstle.vst3" aus "VST3" kopieren nach
+   C:\Program Files\Common Files\VST3\
+   Wichtig: den ganzen Ordner, nicht einzelne Dateien daraus.
+2. Die DAW neu starten oder Plug-ins neu scannen lassen.
+3. RUMSTLE erscheint unter den Instrumenten.
+
+
+Start als eigenes Programm
+--------------------------
+Den Ordner "Standalone" an einen beliebigen Ort kopieren und RUMSTLE.exe
+starten. Der Ordner "rumstle.vst3" muss neben der exe liegen bleiben.
+Windows meldet beim ersten Start einen unbekannten Herausgeber, weil das
+Programm nicht signiert ist: "Weitere Informationen" > "Trotzdem ausführen".
+Der Ton geht an das Standard-Ausgabegerät von Windows.
+
+
+Bedienung
+---------
+- Einschalten: Klick auf ON. Die rote LED leuchtet. RUMSTLE startet
+  ausgeschaltet und ist dann stumm.
+- Regler: mit gedrückter Maustaste nach oben/unten ziehen.
+  Umschalttaste halten = feiner. Doppelklick = Mittelstellung.
+- Kabel stecken: Klick auf einen Ausgang (farbige Buchse), dann auf einen
+  Eingang. Klick auf einen belegten Eingang zieht das Kabel wieder.
+- Die MOD-Regler und die kleinen Regler neben den Buchsen bestimmen, wie
+  stark ein gestecktes Kabel wirkt. Mitte = keine Wirkung, rechts davon
+  normal, links davon umgekehrt.
+- Die LED neben LFO RATE blinkt im Takt des LFO.
+- Nur im eigenen Programm: Menü "Set" speichert und öffnet die komplette
+  Einstellung als .rumstle-Datei. Es wird nichts automatisch gespeichert.
+  Im Plugin speichert die DAW die Einstellung mit dem Projekt.
+
+
+Urheber und Lizenz
+------------------
+RUMSTLE ist eine Bearbeitung der Firmware des Bastl Kastle v1.5:
+
+  Kastle – Software und Schaltplan
+  von Václav Peloušek / Bastl Instruments, 2016–2017
+  https://github.com/bastl-instruments/kastle
+  https://www.bastl-instruments.com
+  veröffentlicht als Open Source unter CC BY-SA
+
+  Der Stufengenerator geht auf die Rungler-Schaltung von Rob Hordijk zurück.
+
+Änderungen gegenüber dem Original: Die Firmware der beiden Mikrocontroller
+wurde nach C/C++ übertragen und zu einem VST3-Instrument mit grafischer
+Oberfläche, Klick-Steckfeld und zwei Steckplätzen je Eingang ausgebaut.
+
+RUMSTLE wird unter derselben Lizenz weitergegeben:
+Creative Commons Namensnennung – Weitergabe unter gleichen Bedingungen 4.0
+(CC BY-SA 4.0), https://creativecommons.org/licenses/by-sa/4.0/deed.de
+
+RUMSTLE ist kein Produkt von Bastl Instruments und wird von Bastl
+Instruments weder unterstützt noch empfohlen.
+
+VST ist eine Marke der Steinberg Media Technologies GmbH. Verwendet wird das
+VST 3 SDK (MIT-Lizenz, © Steinberg Media Technologies GmbH).
+
+
+Kontakt
+-------
+TischEins – info@tischeins.org

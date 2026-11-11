@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vstgui-ui-description version="1">
+	<fonts>
+		<font name="Label" font-name="Arial" size="14" bold="true"/>
+	</fonts>
+	<colors>
+		<color name="Panel" rgba="#333031ff"/>
+		<color name="Ink" rgba="#f3dec6ff"/>
+		<color name="Accent" rgba="#f3dec6ff"/>
+	</colors>
+	<template background-color="Panel" background-color-draw-style="filled" class="CViewContainer" maxSize="760, 650" minSize="760, 650" mouse-enabled="true" name="view" opacity="1" origin="0, 0" size="760, 650" transparent="false">
+
+		<!-- the whole Kastle faceplate: knobs, sockets, cables (kastle_editor.cpp) -->
+		<view class="KastlePatchBay" origin="0, 0" size="760, 650" background-color="Panel" mouse-enabled="true" transparent="false"/>
+
+		<!-- plugin extras the hardware does not have -->
+		<view class="CTextLabel" font="Label" font-color="Ink" back-color="~ TransparentCColor" frame-color="~ TransparentCColor" origin="20, 609" size="60, 28" text-alignment="left" title="MODE" transparent="true"/>
+		<view class="CSegmentButton" control-tag="Mode" origin="80, 609" size="260, 28" font="Label" text-color="Ink" text-color-highlighted="Panel" frame-color="Ink" frame-width="2" round-radius="4" style="horizontal" gradient="SegOff" gradient-highlighted="SegOn" segment-names="FM,T&amp;H,NOISE" mouse-enabled="true"/>
+		<view class="CCheckBox" control-tag="XYMode" origin="400, 611" size="130, 24" font="Label" font-color="Ink" boxframe-color="Ink" boxfill-color="Panel" checkmark-color="Accent" title="XY MODE" mouse-enabled="true" transparent="true"/>
+		<view class="CCheckBox" control-tag="Mono" origin="560, 611" size="100, 24" font="Label" font-color="Ink" boxframe-color="Ink" boxfill-color="Panel" checkmark-color="Accent" title="MONO" mouse-enabled="true" transparent="true"/>
+
+	</template>
+	<variables/>
+	<custom>
+		<attributes name="UIEditController" EditViewScale="1" EditorSize="0, 0, 1100, 800" TabSwitchValue="0" Version="1"/>
+		<attributes name="UITemplateController" SelectedTemplate="view"/>
+		<attributes name="UIGridController" Size="5, 5"/>
+		<attributes name="UIAttributesController"/>
+	</custom>
+	<bitmaps>
+		<bitmap name="plate" path="plate.png"/>
+		<bitmap name="plate#2.0x" path="plate_2x.png" scale-factor="2"/>
+		<bitmap name="knob_body" path="knob_body.png"/>
+		<bitmap name="knob_body#2.0x" path="knob_body_2x.png" scale-factor="2"/>
+		<bitmap name="trim_body" path="trim_body.png"/>
+		<bitmap name="trim_body#2.0x" path="trim_body_2x.png" scale-factor="2"/>
+		<bitmap name="trim" path="trim.png"/>
+		<bitmap name="trim#2.0x" path="trim_2x.png" scale-factor="2"/>
+		<bitmap name="knob" path="knob.png"/>
+		<bitmap name="knob#2.0x" path="knob_2x.png" scale-factor="2"/>
+		<bitmap name="switch_on" path="switch_on.png"/>
+		<bitmap name="switch_on#2.0x" path="switch_on_2x.png" scale-factor="2"/>
+		<bitmap name="switch_off" path="switch_off.png"/>
+		<bitmap name="switch_off#2.0x" path="switch_off_2x.png" scale-factor="2"/>
+		<bitmap name="led_on" path="led_on.png"/>
+		<bitmap name="led_on#2.0x" path="led_on_2x.png" scale-factor="2"/>
+		<bitmap name="led_off" path="led_off.png"/>
+		<bitmap name="led_off#2.0x" path="led_off_2x.png" scale-factor="2"/>
+	</bitmaps>
+	<control-tags>
+		<control-tag name="Pitch" tag="1000"/>
+		<control-tag name="Timbre" tag="1001"/>
+		<control-tag name="Waveshape" tag="1002"/>
+		<control-tag name="Mode" tag="1003"/>
+		<control-tag name="XYMode" tag="1004"/>
+		<control-tag name="LfoRate" tag="1005"/>
+		<control-tag name="Bypass" tag="1018"/>
+		<control-tag name="Mono" tag="1019"/>
+	</control-tags>
+	<gradients>
+		<gradient name="SegOff">
+			<color-stop rgba="#1c1a1bff" start="0"/>
+			<color-stop rgba="#1c1a1bff" start="1"/>
+		</gradient>
+		<gradient name="SegOn">
+			<color-stop rgba="#f3dec6ff" start="0"/>
+			<color-stop rgba="#f3dec6ff" start="1"/>
+		</gradient>
+	</gradients>
+</vstgui-ui-description>

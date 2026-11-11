@@ -1,0 +1,77 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+# The plugin is built inside Steinberg's VST3 SDK tree, as on the developer
+# machine: the SDK is fetched at a fixed tag and this repository is checked
+# out into its my_plugins folder.
+env:
+  SDK_TAG: v3.8.1_build_84
+
+jobs:
+  mac:
+    runs-on: macos-14
+    steps:
+      - name: Fetch VST3 SDK
+        run: git clone --depth 1 --branch "$SDK_TAG" --recurse-submodules --shallow-submodules https://github.com/steinbergmedia/vst3sdk.git
+      - uses: actions/checkout@v4
+        with:
+          path: vst3sdk/my_plugins/kastleport
+      - name: Register plugin with the SDK build
+        run: echo 'add_subdirectory(my_plugins/kastleport)' >> vst3sdk/CMakeLists.txt
+      - name: Configure (universal: Apple silicon + Intel)
+        run: >
+          cmake -S vst3sdk -B build -G Xcode
+          -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
+          -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES=OFF
+          -DSMTG_CREATE_PLUGIN_LINK=OFF
+      - name: Build (runs Steinberg's validator on the result)
+        run: cmake --build build --config Release --target rumstle
+      - name: Package
+        run: |
+          mkdir -p dist
+          cp vst3sdk/my_plugins/kastleport/LIESMICH.txt dist/
+          ditto build/VST3/Release/rumstle.vst3 dist/rumstle.vst3
+          lipo -archs dist/rumstle.vst3/Contents/MacOS/rumstle
+          codesign -dv dist/rumstle.vst3 2>&1 | head -5 || true
+          ditto -c -k --keepParent dist RUMSTLE-macOS.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RUMSTLE-macOS
+          path: RUMSTLE-macOS.zip
+
+  windows:
+    runs-on: windows-2022
+    steps:
+      - name: Fetch VST3 SDK
+        shell: bash
+        run: git clone --depth 1 --branch "$SDK_TAG" --recurse-submodules --shallow-submodules https://github.com/steinbergmedia/vst3sdk.git
+      - uses: actions/checkout@v4
+        with:
+          path: vst3sdk/my_plugins/kastleport
+      - name: Register plugin with the SDK build
+        shell: bash
+        run: echo 'add_subdirectory(my_plugins/kastleport)' >> vst3sdk/CMakeLists.txt
+      - name: Configure
+        run: >
+          cmake -S vst3sdk -B build -G "Visual Studio 17 2022" -A x64
+          -DSMTG_USE_STATIC_CRT=ON
+          -DSMTG_ENABLE_VST3_PLUGIN_EXAMPLES=OFF
+          -DSMTG_CREATE_PLUGIN_LINK=OFF
+      - name: Build plugin and standalone (runs Steinberg's validator)
+        run: cmake --build build --config Release --target rumstle_standalone
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist/VST3, dist/Standalone | Out-Null
+          Copy-Item build/VST3/Release/rumstle.vst3 dist/VST3 -Recurse
+          Copy-Item build/bin/Release/RUMSTLE.exe dist/Standalone
+          Copy-Item build/bin/Release/rumstle.vst3 dist/Standalone -Recurse
+          Copy-Item vst3sdk/my_plugins/kastleport/LIESMICH.txt dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RUMSTLE-Windows
+          path: dist
